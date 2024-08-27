@@ -1,0 +1,36 @@
+### Criar um novo usuário
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "username": "Hanna",
+  "password": "123456",
+  "email": "hanna2023@gmail.com",
+  "role": "ROLE_ADMIN"
+}
+
+
+### Obter todos os usuários
+GET http://localhost:8080/api/users
+
+
+
+### Obter usuário por ID
+GET http://localhost:8080/api/users/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5pbG8iLCJpYXQiOjE3MjM2NDMyMTIsImV4cCI6MTcyMzY3OTIxMn0.w3XctfOTPGV7f_Ap56NU8XELcx90xG3kEn26pVyqdik
+
+### Atualizar um usuário que já existe
+PUT http://localhost:8080/api/users/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5pbG8iLCJpYXQiOjE3MjM2NDMyMTIsImV4cCI6MTcyMzY3OTIxMn0.w3XctfOTPGV7f_Ap56NU8XELcx90xG3kEn26pVyqdik
+
+{
+  "username": "joao",
+  "password": "321",
+  "email": "joaozinho@example.com",
+  "role": "ROLE_USER"
+}
+
+### Deletar usuário
+DELETE http://localhost:8080/api/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5pbG8iLCJpYXQiOjE3MjM2NDMyMTIsImV4cCI6MTcyMzY3OTIxMn0.w3XctfOTPGV7f_Ap56NU8XELcx90xG3kEn26pVyqdik

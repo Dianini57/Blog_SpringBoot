@@ -1,0 +1,19 @@
+### Listar todos os usuários
+GET http://localhost:8080/api/admin/users
+
+
+### Promover um usuário a administrador
+PUT http://localhost:8080/api/admin/users/2/promote
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEYW5pbG8iLCJpYXQiOjE3MjM2NDAxMzYsImV4cCI6MTcyMzY3NjEzNn0.245-cjgU5o8wlAGD6vpkn-rj6tbMngrE81h3JhUMzac
+
+
+### Deletar um usuário
+DELETE http://localhost:8080/api/admin/users/2
+
+
+### Listar todos os posts
+GET http://localhost:8080/api/admin/posts
+
+
+### Deletar um post
+DELETE http://localhost:8080/api/admin/posts/7

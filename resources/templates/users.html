@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Usuários</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>Gerenciamento de Usuários</h1>
+    <nav>
+        <a th:href="@{/dashboard-admin.html}">Voltar ao Dashboard</a>
+    </nav>
+</header>
+
+<main>
+    <section id="usersSection">
+        <h2>Lista de Usuários</h2>
+        <table id="usersTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<script src="js/users.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts Recentes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>Posts Recentes</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Página Inicial</a></li>
+            <li><a th:href="@{/create-post}">Criar Post</a></li>
+            <li><a th:href="@{/login}">Login</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div id="postsContainer"></div>
+</main>
+
+<footer>
+    <p>Blog - Todos os direitos reservados</p>
+</footer>
+
+<script th:src="@{/js/fetch-posts.js}"></script>
+</body>
+</html>

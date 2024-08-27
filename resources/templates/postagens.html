@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postagens Públicas</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #c9b29a;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #8b4513;
+            color: #f8f4f0;
+            padding: 20px;
+            text-align: center;
+            font-size: 2.5rem;
+            font-family: 'Georgia', serif;
+            text-shadow: 2px 2px 4px #b85c5c;
+        }
+
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            background-color: #916962;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #f8f4f0;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            background-color: #f8f4f0; /* Fundo suave */
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+
+        .post {
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #e2e6ea;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .post h3 {
+            margin-top: 0;
+            color: #8b4513;
+        }
+
+        .post p {
+            color: #3e2723;
+        }
+
+        .post small {
+            display: block;
+            margin-top: 10px;
+            color: #753f16;
+        }
+
+        .post hr {
+            border: 0;
+            height: 1px;
+            background: #8b4513;
+            margin: 15px 0;
+        }
+
+
+        footer {
+            background-color: #8b4513;
+            color: #f8f4f0; /
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    Postagens Públicas - Blog da Kayara
+</header>
+
+<nav>
+    <ul>
+        <li><a th:href="@{/}">Página Inicial</a></li>
+        <li><a th:href="@{/postagens}">Postagens</a></li>
+        <li><a th:href="@{/contato}">Contato</a></li>
+        <li><a th:href="@{/login}">Login</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section id="postContainer">
+
+    </section>
+</main>
+
+<footer>
+    <p>Todos os direitos reservados - Blog da Kayara</p>
+</footer>
+
+<script>
+
+    async function loadPosts() {
+        try {
+            const response = await fetch('/api/posts');
+            if (!response.ok) throw new Error('Erro ao buscar postagens');
+
+            const posts = await response.json();
+            const postContainer = document.getElementById('postContainer');
+            postContainer.innerHTML = '';
+
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('post');
+
+                postElement.innerHTML = `
+                    <h3>${post.title}</h3>
+                    <p>${post.content}</p>
+                    <small>Autor: ${post.author}</small>
+                    <hr>
+                `;
+
+                postContainer.appendChild(postElement);
+            });
+        } catch (error) {
+            console.error('Erro ao carregar postagens:', error);
+            document.getElementById('postContainer').innerHTML = `<p>Erro ao carregar postagens.</p>`;
+        }
+    }
+
+    // Carrega os posts ao carregar a página
+    document.addEventListener('DOMContentLoaded', loadPosts);
+</script>
+</body>
+</html>

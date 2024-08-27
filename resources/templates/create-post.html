@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Post</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>Criar Post</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li id="logoutLink" style="display: none;"><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <form id="postForm">
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="summary">Resumo:</label>
+        <input type="text" id="summary" name="summary" required><br><br>
+
+        <label for="content">Conteúdo:</label>
+        <textarea id="content" name="content" required></textarea><br><br>
+
+        <button type="submit">Criar Post</button>
+    </form>
+
+    <div id="message"></div>
+</main>
+
+<footer>
+    <p>Blog - Todos os direitos reservados</p>
+</footer>
+
+<script>
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+
+    if (!token || role !== 'ADMIN') {
+        window.location.href = /*[[${#urls.relative("login")}]]*/ 'login.html';
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        window.location.href = /*[[${#urls.relative("index")}]]*/ 'index.html';
+    });
+</script>
+
+<script th:src="@{/js/create-post.js}"></script>
+</body>
+</html>

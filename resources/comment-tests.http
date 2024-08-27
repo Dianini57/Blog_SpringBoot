@@ -1,0 +1,42 @@
+### Criar um novo comentário
+POST http://localhost:8080/api/comments
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrYW1pbHkiLCJpYXQiOjE3MjM0Mzk0NDgsImV4cCI6MTcyMzQ3NTQ0OH0.vngkmfiLh8K_PJRaADmHR89ZS2Kh3VMcLNh9S6ztPvU
+
+{
+  "content": "teste!",
+  "author": "kamily",
+  "post": {
+    "id":7
+  }
+}
+
+###
+
+### Obter todos os comentários
+GET http://localhost:8080/api/comments
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrYW1pbHkiLCJpYXQiOjE3MjM0Mzk0NDgsImV4cCI6MTcyMzQ3NTQ0OH0.vngkmfiLh8K_PJRaADmHR89ZS2Kh3VMcLNh9S6ztPvU
+
+###
+
+### Obter comentário por ID
+GET http://localhost:8080/api/comments/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrYW1pbHkiLCJpYXQiOjE3MjM0Mzk0NDgsImV4cCI6MTcyMzQ3NTQ0OH0.vngkmfiLh8K_PJRaADmHR89ZS2Kh3VMcLNh9S6ztPvU
+
+###
+
+### Atualizar um comentário que já existe
+PUT http://localhost:8080/api/comments/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrYW1pbHkiLCJpYXQiOjE3MjM0Mzk0NDgsImV4cCI6MTcyMzQ3NTQ0OH0.vngkmfiLh8K_PJRaADmHR89ZS2Kh3VMcLNh9S6ztPvU
+
+{
+  "content": "teste",
+  "author": "Keixinha"
+}
+
+###
+
+### Deletar um comentário
+DELETE http://localhost:8080/api/comments/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrYW1pbHkiLCJpYXQiOjE3MjM0Mzk0NDgsImV4cCI6MTcyMzQ3NTQ0OH0.vngkmfiLh8K_PJRaADmHR89ZS2Kh3VMcLNh9S6ztPvU

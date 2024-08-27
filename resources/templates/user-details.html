@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>Detalhes do Usuário</h1>
+    <nav>
+        <a th:href="@{/users.html}">Voltar para Lista de Usuários</a>
+    </nav>
+</header>
+
+<main>
+    <section id="userDetailsSection">
+        <h2>Informações do Usuário</h2>
+        <p><strong>ID:</strong> <span id="userId"></span></p>
+        <p><strong>Nome:</strong> <span id="userName"></span></p>
+        <p><strong>Email:</strong> <span id="userEmail"></span></p>
+    </section>
+</main>
+
+<script src="js/user-details.js"></script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Gerenciar Postagens</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8e1e1;
+        }
+
+
+        header {
+            background-color: #8b5e3c;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 1.8rem;
+            font-family: 'Georgia', serif;
+        }
+
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            background-color: #b3876c; /* Bege médio */
+            border-bottom: 2px solid #8b5e3c;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+
+
+        main {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #fff5ee;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #8b5e3c;
+            color: white;
+            margin-top: 30px;
+        }
+
+
+        .dashboard-section {
+            text-align: center;
+        }
+
+
+        #createPostLink {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #createPostLink:hover {
+            background-color: #0056b3;
+        }
+
+
+        .post {
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #fbe9e7;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .post h3 {
+            margin: 0;
+        }
+
+        .post-actions {
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+
+        form {
+            margin-top: 20px;
+        }
+
+        form input[type="text"],
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f4f0;
+        }
+
+        form button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Dashboard</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/Postagens}">Postagens</a></li>
+            <li><a th:href="@{/contato}">Contato</a></li>
+            <li><a href="#" id="createPostLink">Criar Post</a></li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="dashboard-section">
+        <h2>Bem-vindo ao Dashboard!</h2>
+        <p>Você está logado como <span id="userRole"></span>.</p>
+
+
+        <div class="container">
+            <h1>Gerenciar Postagens</h1>
+
+
+            <div id="postList"></div>
+
+
+            <form id="postForm">
+                <input type="hidden" id="postId" value="">
+                <label for="title">Título:</label>
+                <input type="text" id="title" required>
+
+                <label for="content">Conteúdo:</label>
+                <textarea id="content" rows="5" required></textarea>
+
+                <button type="submit">Salvar Post</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>Blog - Todos os direitos reservados</p>
+</footer>
+
+<script>
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+
+
+    document.getElementById('userRole').innerText = role;
+
+
+    async function loadPosts() {
+        const response = await fetch('/api/posts', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const posts = await response.json();
+
+        const postList = document.getElementById('postList');
+        postList.innerHTML = '';
+
+        posts.forEach(post => {
+            const postElement = document.createElement('div');
+            postElement.classList.add('post');
+            postElement.innerHTML = `
+                <h3>${post.title}</h3>
+                <p>${post.content}</p>
+                <div class="post-actions">
+                    <button class="btn" onclick="editPost(${post.id})">Editar</button>
+                    <button class="btn btn-delete" onclick="deletePost(${post.id})">Excluir</button>
+                </div>
+            `;
+            postList.appendChild(postElement);
+        });
+    }
+
+
+    function editPost(id) {
+        fetch(`/api/posts/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(post => {
+                document.getElementById('postId').value = post.id;
+                document.getElementById('title').value = post.title;
+                document.getElementById('content').value = post.content;
+            });
+    }
+
+
+    function deletePost(id) {
+        if (confirm('Deseja realmente excluir este post?')) {
+            fetch(`/api/posts/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            }).then(() => loadPosts());
+        }
+    }
+
+
+    document.getElementById('postForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const postId = document.getElementById('postId').value;
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+
+        const method = postId ? 'PUT' : 'POST';
+        const url = postId ? `/api/posts/${postId}` : '/api/posts';
+
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, content })
+        });
+
+        if (response.ok) {
+            document.getElementById('postForm').reset();
+            loadPosts();
+        }
+    });
+
+
+    loadPosts();
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        window.location.replace('/');
+    });
+</script>
+</body>
+</html>

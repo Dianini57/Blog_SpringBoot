@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: #c9b29a;
+            color: #3e2723;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+
+
+        h1 {
+            color: #64291f;
+            font-size: 2.5rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px #b85c5c;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #54241c;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            background-color: #916962;
+            margin: 0;
+            border-bottom: 2px solid #3e2723;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fdf5e6;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+
+               .contact-section {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f4f0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .contact-section p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-section strong {
+            color: #54241c;
+        }
+
+
+        footer {
+            background-color: #3e2723;
+            padding: 20px;
+            text-align: center;
+            color: #f8f4f0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Entre em Contato</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Página Inicial</a></li>
+            <li><a th:href="@{/Postagens}">Postagens</a></li>
+            <li><a th:href="@{/contato}">Contato</a></li>
+            <li><a th:href="@{/login}">Login</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="contact-section">
+        <h2>Informações de Contato</h2>
+        <p>
+            Se você deseja entrar em contato conosco, utilize as informações abaixo:
+        </p>
+        <p>
+            <strong>Email:</strong> contato@kayara.com.br<br>
+            <strong>Telefone:</strong> (11) 1234-5678<br>
+            <strong>Endereço:</strong> Rua Exemplo, 123, Bairro Exemplo, Cidade Exemplo, Estado Exemplo
+        </p>
+        <p>
+            Estamos disponíveis de segunda a sexta-feira, das 9h às 18h.
+        </p>
+    </section>
+</main>
+
+<footer>
+    <p>Blog - Todos os direitos reservados</p>
+</footer>
+
+</body>
+</html>

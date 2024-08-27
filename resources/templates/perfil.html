@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>Perfil de Usuário</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a href="#">Postagens</a></li>
+            <li><a th:href="@{/dashboard}">Dashboard</a></li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="profile">
+        <div class="profile-info">
+            <img th:src="@{/imagens/user-avatar.jpg}" alt="Foto de Perfil" class="profile-avatar">
+            <h2 id="userName">Nome do Usuário</h2>
+            <p id="userEmail">email@example.com</p>
+            <button id="editProfileBtn">Editar Perfil</button>
+        </div>
+        <div class="profile-details">
+            <h3>Posts Recentes</h3>
+            <ul id="userPosts">
+
+            </ul>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>Blog - Todos os direitos reservados</p>
+</footer>
+
+<script th:src="@{/js/profile.js}"></script>
+</body>
+</html>

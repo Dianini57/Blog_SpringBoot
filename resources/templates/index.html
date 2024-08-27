@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Home</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+
+        .image-gallery {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px auto;
+            max-width: 1000px;
+        }
+
+        .image-gallery .image-container {
+            position: relative;
+            width: 30%;
+            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .image-gallery .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+
+        .image-gallery .image-container:hover img {
+            transform: scale(1.1);
+        }
+
+
+        .image-gallery .image-container .caption {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #fff;
+            font-size: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 0 0 10px 10px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Blog da Kayara</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Página Inicial</a></li>
+            <li><a th:href="@{/Postagens}">Postagens</a></li>
+            <li><a th:href="@{/contato}">Contato</a></li>
+            <li><a th:href="@{/login}">Login</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <!-- Galeria de Imagens -->
+    <div class="image-gallery">
+        <div class="image-container">
+            <img th:src="@{/imagens/kay1.JPG}" alt="Terapia Tântrica">
+            <div class="caption">Terapia Tântrica</div>
+        </div>
+        <div class="image-container">
+            <img th:src="@{/imagens/kay2.JPG}" alt="Tarot">
+            <div class="caption">Tarot</div>
+        </div>
+        <div class="image-container">
+            <img th:src="@{/imagens/kay3.JPG}" alt="Magia e Astrologia">
+            <div class="caption">Magia e Astrologia</div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>Todos os direitos reservados - Blog da Kayara</p>
+</footer>
+</body>
+</html>

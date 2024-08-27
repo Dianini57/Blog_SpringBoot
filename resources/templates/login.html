@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Blog da Kayara</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+
+        header {
+            text-align: center;
+            padding: 10px;
+            background-color: #c9b29a;
+            color: black;
+            font-family: 'Georgia', serif;
+        }
+
+        nav {
+            background-color: #916962;
+            padding: 2px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #3e2723;
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        nav ul li a:hover {
+            background-color: #916962;
+            color: #3e2723;
+            border-radius: 5px;
+        }
+
+
+        .login-container {
+            max-width: 240px;
+            margin: 30px auto;
+            padding: 0px;
+            background-color: #c9b29a;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            color: #8b4513;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .login-container label {
+            display: block;
+            margin: 10px 0 10px;
+            font-weight: bold;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 0.9rem;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 8px;
+            background-color: #3e2723;
+            color: white    ;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background-color: #8b4513;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px;
+            background-color: #3e2723;
+            color: white;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+
+        #errorMessage {
+            color: red;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        #successMessage {
+            color: green;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Blog da Kayara</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Página Inicial</a></li>
+            <li><a th:href="@{/Postagens}">Postagens</a></li>
+            <li><a th:href="@{/contato}">Contato</a></li>
+            <li><a th:href="@{/login}">Login</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3"><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="6"><br>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div id="errorMessage"></div>
+        <div id="successMessage"></div>
+    </div>
+</main>
+
+<footer>
+    <p>Todos os direitos reservados - Blog da Kayara</p>
+</footer>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+
+
+                localStorage.setItem('token', data.jwt);
+                localStorage.setItem('role', data.role);
+
+
+                if (data.role === 'ROLE_ADMIN') {
+                    displaySuccess('Login bem-sucedido! Redirecionando para o painel do administrador...');
+                    setTimeout(() => window.location.replace('/templates/dashboard-admin'), 1000);
+                } else {
+                    displaySuccess('Login bem-sucedido! Redirecionando para o painel de usuário...');
+                    setTimeout(() => window.location.replace('/templates/dashboard'), 1000);
+                }
+            } else {
+                displayError('Login falhou! Verifique suas credenciais.');
+            }
+        } catch (error) {
+            displayError('Erro ao fazer login. Tente novamente mais tarde.');
+        }
+    });
+
+    function displayError(message) {
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        errorMessage.textContent = message;
+        successMessage.textContent = '';
+    }
+
+    function displaySuccess(message) {
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        successMessage.textContent = message;
+        errorMessage.textContent = '';
+    }
+</script>
+</body>
+</html>

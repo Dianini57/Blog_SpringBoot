@@ -1,0 +1,39 @@
+### Criar um novo post
+POST http://localhost:8080/api/posts
+Content-Type: application/json
+
+{
+  "title": "BABANA",
+  "content": "teste1",
+  "author": "Hanna",
+  "summary": ".",
+  "tags": ["Spring Boot", "kami"]
+}
+
+
+### Obter todos os posts
+GET http://localhost:8080/api/posts
+
+
+### Obter post por ID
+GET http://localhost:8080/api/posts/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrYW1pbHkiLCJpYXQiOjE3MjM0Mzk0NDgsImV4cCI6MTcyMzQ3NTQ0OH0.vngkmfiLh8K_PJRaADmHR89ZS2Kh3VMcLNh9S6ztPvU
+
+
+### Atualizar um post que já existe
+PUT http://localhost:8080/api/posts/6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrYW1pbHkiLCJpYXQiOjE3MjM0Mzk0NDgsImV4cCI6MTcyMzQ3NTQ0OH0.vngkmfiLh8K_PJRaADmHR89ZS2Kh3VMcLNh9S6ztPvU
+
+{
+  "title": "atualizacao",
+  "content": "teste.",
+  "author": "teste2",
+  "summary": "teste 3.",
+  "tags": ["Hanna", "teste4"]
+}
+
+
+### Deletar um post
+DELETE http://localhost:8080/api/posts/9
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5pbG8iLCJpYXQiOjE3MjM2NDM3NzgsImV4cCI6MTcyMzY3OTc3OH0._3G9NnabV_Y6r28dJy9B_JFqFeBtFWM1JhRXV2dhr7I

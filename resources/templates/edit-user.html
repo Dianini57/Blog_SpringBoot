@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>Editar Usuário</h1>
+    <nav>
+        <a th:href="@{/users.html}">Voltar para Lista de Usuários</a>
+    </nav>
+</header>
+
+<main>
+    <section id="editUserSection">
+        <form id="editUserForm">
+            <label for="userName">Nome:</label>
+            <input type="text" id="userName" name="userName" required>
+
+            <label for="userEmail">Email:</label>
+            <input type="email" id="userEmail" name="userEmail" required>
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </section>
+</main>
+
+<script src="js/edit-user.js"></script>
+</body>
+</html>

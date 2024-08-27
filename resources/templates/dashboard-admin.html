@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Administrador</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #c9b29a;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    header {
+      background-color: #8b4513;
+      color: #f8f4f0;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 2.5rem;
+      font-family: 'Georgia', serif;
+      text-shadow: 2px 2px 4px #b85c5c;
+    }
+
+
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f8f4f0;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #8b4513;
+      margin-bottom: 30px;
+    }
+
+
+    .admin-options {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+    }
+
+    .admin-option {
+      width: 30%;
+      background-color: #f8f4f0;
+      padding: 20px;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    .admin-option:hover {
+      background-color: #d2b48c;
+      cursor: pointer;
+    }
+
+    .admin-option h3 {
+      color: #8b4513;
+      margin-bottom: 15px;
+    }
+
+    .admin-option p {
+      color: #54241c;
+    }
+
+    .admin-option button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #8b4513;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .admin-option button:hover {
+      background-color: #753f16;
+    }
+
+    #adminInfo {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #54241c;
+    }
+
+
+    #logoutBtn {
+      display: block;
+      margin: 30px auto 0 auto;
+      padding: 10px 20px;
+      background-color: #b85c5c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #logoutBtn:hover {
+      background-color: #8b4513;
+    }
+
+    /* Estilo do rodapé */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #8b4513;
+      color: #f8f4f0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  Painel do Administrador - Blog da Kayara
+</header>
+
+<div class="dashboard-container">
+  <h1>Painel do Administrador</h1>
+  <div id="adminInfo">
+
+  </div>
+
+  <div class="admin-options">
+    <div class="admin-option">
+      <h3>Gerenciar Usuários</h3>
+      <p>Visualize, edite e remova usuários do sistema.</p>
+      <button onclick="window.location.href='users.html'">Ir para gerenciamento de usuários</button>
+    </div>
+    <div class="admin-option">
+      <h3>Gerenciar Posts</h3>
+      <p>Gerencie os posts criados no blog.</p>
+      <button onclick="window.location.href='manage-posts.html'">Ir para gerenciamento de posts</button>
+    </div>
+    <div class="admin-option">
+      <h3>Configurações</h3>
+      <p>Configure o sistema e as permissões de usuário.</p>
+      <button onclick="window.location.href='settings.html'">Ir para configurações</button>
+    </div>
+  </div>
+
+  <button id="logoutBtn">Logout</button>
+</div>
+
+<footer>
+  <p>Blog - Todos os direitos reservados</p>
+</footer>
+
+<script src="js/dashboard-admin.js"></script>
+
+</body>
+</html>
