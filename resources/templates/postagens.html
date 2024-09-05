@@ -3,163 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Postagens Públicas</title>
+    <title>Postagens - Blog da Kayara</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #c9b29a;
+        /* Garantir que a página ocupe 100% da altura da janela */
+        html, body {
+            height: 100%;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: #a67a73; /* Rosa bege escuro */
+            color: #f4f4f4; /* Cor clara para o texto */
+            font-family: 'Garamond', 'Times New Roman', serif; /* Fonte clássica e robusta */
+            background-image: radial-gradient(circle at 20% 20%, transparent 95%, #4b2e2a 96%), /* Lua */
+            radial-gradient(circle at 80% 20%, transparent 95%, #4b2e2a 96%), /* Lua */
+            radial-gradient(circle at 20% 80%, transparent 95%, #4b2e2a 96%), /* Lua */
+            radial-gradient(circle at 80% 80%, transparent 95%, #4b2e2a 96%), /* Lua */
+            radial-gradient(circle at 50% 50%, transparent 92%, #4b2e2a 93%); /* Estrela */
+            background-size: 200px 200px;
         }
 
-        /* Cabeçalho */
         header {
-            background-color: #8b4513;
-            color: #f8f4f0;
+            background-color: #a67a73; /* Rosa bege escuro */
             padding: 20px;
-            text-align: center;
-            font-size: 2.5rem;
-            font-family: 'Georgia', serif;
-            text-shadow: 2px 2px 4px #b85c5c;
         }
 
+        h1 {
+            color: #f4f4f4; /* Cor clara para o título */
+            margin: 0;
+            text-align: center;
+            text-shadow: 2px 2px 5px #4b2e2a; /* Sombra marrom escura */
+            font-family: 'Georgia', 'Times New Roman', serif; /* Mantendo a fonte clássica */
+        }
 
         nav ul {
             list-style: none;
             padding: 0;
-            margin: 20px 0;
             display: flex;
             justify-content: center;
-            background-color: #916962;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        nav ul li {
-            margin: 0 15px;
+            gap: 20px;
+            margin: 0;
+            background-color: #a67a73; /* Rosa bege escuro */
         }
 
         nav ul li a {
-            color: #f8f4f0;
+            color: #f4f4f4; /* Cor clara para os links */
             text-decoration: none;
-            font-size: 1.2rem;
             font-weight: bold;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
+            text-shadow: 2px 2px 4px #4b2e2a; /* Sombra marrom escura nas letras */
         }
 
         nav ul li a:hover {
-            color: #ffd700;
+            color: #e0aabb; /* Cor rosa mais clara no hover */
         }
 
+        /* Estilo para a linha de separação */
+        hr.separator {
+            border: none;
+            border-top: 2px solid #4b2e2a; /* Linha marrom escura */
+            margin: 0; /* Remove espaçamento padrão */
+        }
 
         main {
-            max-width: 1000px;
-            margin: 30px auto;
-            background-color: #f8f4f0; /* Fundo suave */
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-
-
-        .post {
-            padding: 15px;
-            margin-bottom: 20px;
-            background-color: #e2e6ea;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .post h3 {
-            margin-top: 0;
-            color: #8b4513;
-        }
-
-        .post p {
-            color: #3e2723;
-        }
-
-        .post small {
-            display: block;
-            margin-top: 10px;
-            color: #753f16;
-        }
-
-        .post hr {
-            border: 0;
-            height: 1px;
-            background: #8b4513;
-            margin: 15px 0;
-        }
-
 
         footer {
-            background-color: #8b4513;
-            color: #f8f4f0; /
+            background-color: #a67a73; /* Mesma cor do header */
+            color: #f4f4f4;
             text-align: center;
+            padding: 10px;
+            border-top: 2px solid #4b2e2a; /* Linha de separação do rodapé */
+        }
+
+        .postagens-section {
+            text-align: center;
+            margin: 40px auto;
+            max-width: 1000px;
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro para a seção de postagens */
             padding: 20px;
-            margin-top: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adiciona sombra para destacar a seção */
+        }
+
+        .postagens-section h2 {
+            font-size: 2rem; /* Diminuindo o tamanho da fonte do título */
+            color: #f4f4f4;
+            text-shadow: 2px 2px 5px #4b2e2a;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            margin-bottom: 10px;
+        }
+
+        .postagens-section p {
+            font-size: 1.3rem; /* Aumentando o tamanho da fonte do subtítulo */
+            color: #f4f4f4;
+        }
+
+        .postagens-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .postagens-section li {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo ainda mais escuro */
+            border: 2px solid #4b2e2a; /* Borda mais espessa */
+            border-radius: 15px; /* Bordas mais arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade */
+            transition: transform 0.3s ease; /* Efeito de elevação ao passar o mouse */
+        }
+
+        .postagens-section li:hover {
+            transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
+        }
+
+        .postagens-section li h3 {
+            color: #f4f4f4;
+            font-family: 'Garamond', 'Times New Roman', serif; /* Fonte clássica e robusta */
+            margin-top: 0;
+            text-shadow: 1px 1px 3px #4b2e2a;
+            font-size: 1.8rem; /* Mantendo o tamanho da fonte do título das postagens */
+        }
+
+        .postagens-section li p {
+            color: #f4f4f4;
+            font-size: 1.2rem; /* Fonte um pouco maior e mais robusta */
+        }
+
+        .postagens-section li img {
+            max-width: 50%; /* Diminuindo o tamanho das imagens */
+            height: auto;
+            border-radius: 10px;
+            margin-top: 10px; /* Espaço entre o texto e a imagem */
+            transition: transform 0.3s ease;
+        }
+
+        .postagens-section li:hover img {
+            transform: scale(1.05); /* Leve aumento da imagem ao passar o mouse */
         }
     </style>
 </head>
 <body>
 <header>
-    Postagens Públicas - Blog da Kayara
+    <h1>Blog da Kayara</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Página Inicial</a></li>
+            <li><a th:href="@{/postagens}">Postagens</a></li>
+            <li><a th:href="@{/contato}">Contato</a></li>
+            <li><a th:href="@{/login}">Login</a></li>
+        </ul>
+    </nav>
+    <hr class="separator"> <!-- Linha de separação marrom -->
 </header>
 
-<nav>
-    <ul>
-        <li><a th:href="@{/}">Página Inicial</a></li>
-        <li><a th:href="@{/postagens}">Postagens</a></li>
-        <li><a th:href="@{/contato}">Contato</a></li>
-        <li><a th:href="@{/login}">Login</a></li>
-    </ul>
-</nav>
-
 <main>
-    <section id="postContainer">
+    <section class="postagens-section">
+        <h2>Veja nossas postagens mais recentes</h2>
+        <p>Aqui estão as últimas postagens do blog.</p>
 
+        <!-- Exibindo as postagens do modelo -->
+        <div>
+            <ul>
+                <li th:each="post : ${posts}">
+                    <h3 th:text="${post.title}"></h3>
+                    <p th:text="${post.content}"></p>
+                    <img th:if="${post.imageUrl}" th:src="${post.imageUrl}" alt="Imagem do Post">
+                </li>
+            </ul>
+        </div>
     </section>
 </main>
 
 <footer>
     <p>Todos os direitos reservados - Blog da Kayara</p>
 </footer>
-
-<script>
-
-    async function loadPosts() {
-        try {
-            const response = await fetch('/api/posts');
-            if (!response.ok) throw new Error('Erro ao buscar postagens');
-
-            const posts = await response.json();
-            const postContainer = document.getElementById('postContainer');
-            postContainer.innerHTML = '';
-
-            posts.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.classList.add('post');
-
-                postElement.innerHTML = `
-                    <h3>${post.title}</h3>
-                    <p>${post.content}</p>
-                    <small>Autor: ${post.author}</small>
-                    <hr>
-                `;
-
-                postContainer.appendChild(postElement);
-            });
-        } catch (error) {
-            console.error('Erro ao carregar postagens:', error);
-            document.getElementById('postContainer').innerHTML = `<p>Erro ao carregar postagens.</p>`;
-        }
-    }
-
-    // Carrega os posts ao carregar a página
-    document.addEventListener('DOMContentLoaded', loadPosts);
-</script>
 </body>
 </html>

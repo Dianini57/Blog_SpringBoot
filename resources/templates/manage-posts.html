@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Posts</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        /* Garantir que a página ocupe 100% da altura da janela */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: #c9b29a; /* Marrom claro com tom de rosa bege */
+            color: #f4f4f4; /* Cor clara para o texto */
+            font-family: 'Garamond', 'Times New Roman', serif; /* Fonte clássica e robusta */
+        }
+
+        header {
+            background-color: #a67a73; /* Rosa bege escuro */
+            color: #f4f4f4;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 2.5rem;
+            font-family: 'Georgia', serif;
+            text-shadow: 2px 2px 4px #4b2e2a; /* Sombra marrom escura */
+            position: relative; /* Para posicionar o botão dentro do header */
+        }
+
+        header .dashboard-btn {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            background-color: #4b2e2a;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        header .dashboard-btn:hover {
+            background-color: #8b4513;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro para o container principal */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adiciona sombra para destaque */
+            border-radius: 15px; /* Bordas arredondadas */
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #f4f4f4;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px #4b2e2a; /* Sombra marrom escura */
+            font-family: 'Georgia', 'Times New Roman', serif; /* Mantendo a fonte clássica */
+        }
+
+        #postForm, #newPost {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro para o formulário */
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        #postForm input[type="text"],
+        #postForm textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #4b2e2a; /* Borda escura para consistência */
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        #postForm button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: #4b2e2a;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #postForm button:hover {
+            background-color: #8b4513;
+        }
+
+        /* Estilo dos posts */
+        .post {
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro com leve transparência */
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade */
+            overflow: hidden; /* Adicionado para que as imagens se ajustem ao container */
+        }
+
+        .post h3 {
+            margin-top: 0;
+            color: #f4f4f4;
+            font-family: 'Garamond', 'Times New Roman', serif; /* Fonte clássica e robusta */
+            text-shadow: 1px 1px 3px #4b2e2a;
+        }
+
+        .post p {
+            color: #f4f4f4;
+            font-size: 1.2rem;
+        }
+
+        .post small {
+            display: block;
+            margin-top: 10px;
+            color: #f4f4f4;
+        }
+
+        .post img {
+            max-width: 50%; /* Diminuindo o tamanho das imagens */
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .post:hover img {
+            transform: scale(1.05);
+        }
+
+        .post hr {
+            border: 0;
+            height: 1px;
+            background: #8b4513;
+            margin: 15px 0;
+        }
+
+        footer {
+            background-color: #a67a73;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
+            border-top: 2px solid #4b2e2a; /* Linha de separação do rodapé */
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Gerenciar Posts</h1>
+    <button class="dashboard-btn" onclick="window.location.href='http://localhost:8080/templates/dashboard-admin'">Dashboard-Admin</button>
+</header>
+
+<main>
+    <h2>Lista de Posts</h2>
+    <div id="postList">
+        <!-- A lista de posts será carregada aqui -->
+    </div>
+
+    <div id="newPost">
+        <h2>Criar Novo Post</h2>
+        <form id="postForm">
+            <label for="title">Título:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="content">Conteúdo:</label>
+            <textarea id="content" name="content" required></textarea>
+
+            <label for="author">Autor:</label>
+            <input type="text" id="author" name="author" placeholder="Autor" required>
+
+            <label for="image">Escolher uma imagem:</label>
+            <input type="file" id="image" name="image" accept="image/*">
+
+            <button type="submit">Criar Post</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>Todos os direitos reservados - Blog da Kayara</p>
+</footer>
+
+<script>
+    const token = localStorage.getItem('token');
+
+    // Verifica se o token está presente; se não, redireciona para login
+    if (!token) {
+        alert('Usuário não autenticado. Redirecionando para a página de login.');
+        window.location.href = '/login.html';
+    }
+
+    async function loadPosts() {
+        try {
+            const response = await fetch('/api/posts', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Erro ao carregar posts.');
+            }
+
+            const posts = await response.json();
+            const postList = document.getElementById('postList');
+            postList.innerHTML = '';
+
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('post'); // Adiciona a classe post para estilizar
+                postElement.innerHTML = `
+                    <h3>${post.title}</h3>
+                    <p>${post.content}</p>
+                    ${post.imageUrl ? `<img src="${post.imageUrl}" alt="Imagem do Post">` : ''}
+                    <small>Autor: ${post.author}</small>
+                    <button class="edit" onclick="editPost(${post.id})">Editar</button>
+                    <button class="delete" onclick="deletePost(${post.id})">Deletar</button>
+                    <hr>
+                `;
+                postList.appendChild(postElement);
+            });
+        } catch (error) {
+            console.error(error);
+            alert('Erro ao carregar posts. Tente novamente mais tarde.');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadPosts);
+
+    async function handleCreatePost(event) {
+        event.preventDefault();
+
+        const formData = new FormData();
+        formData.append('title', document.getElementById('title').value);
+        formData.append('content', document.getElementById('content').value);
+        formData.append('author', document.getElementById('author').value);
+        formData.append('image', document.getElementById('image').files[0]);
+
+        try {
+            const response = await fetch('/api/posts', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('Post criado com sucesso!');
+                loadPosts(); // Recarrega a lista de posts
+            } else {
+                alert('Erro ao criar post.');
+            }
+        } catch (error) {
+            console.error('Erro ao criar post:', error);
+        }
+    }
+
+    document.getElementById('postForm').onsubmit = handleCreatePost;
+
+    async function editPost(postId) {
+        try {
+            const post = await fetchPostById(postId);
+
+            document.getElementById('title').value = post.title;
+            document.getElementById('content').value = post.content;
+            document.getElementById('author').value = post.author;
+
+            document.getElementById('postForm').onsubmit = async function(event) {
+                event.preventDefault();
+
+                const formData = {
+                    title: document.getElementById('title').value,
+                    content: document.getElementById('content').value,
+                    author: post.author,
+                    summary: post.summary,
+                    tags: post.tags
+                };
+
+                try {
+                    const response = await fetch(`/api/posts/${postId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        alert('Post atualizado com sucesso!');
+                        loadPosts();
+                    } else {
+                        alert('Erro ao atualizar post.');
+                    }
+                } catch (error) {
+                    console.error('Erro ao atualizar post:', error);
+                }
+
+                document.getElementById('postForm').reset();
+                document.getElementById('postForm').onsubmit = handleCreatePost;
+            };
+        } catch (error) {
+            console.error('Erro ao carregar post para edição:', error);
+        }
+    }
+
+    async function deletePost(postId) {
+        try {
+            const response = await fetch(`/api/posts/${postId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                alert('Post deletado com sucesso!');
+                loadPosts();
+            } else {
+                alert('Erro ao deletar post.');
+            }
+        } catch (error) {
+            console.error('Erro ao deletar post:', error);
+        }
+    }
+
+    async function fetchPostById(postId) {
+        try {
+            const response = await fetch(`/api/posts/${postId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                return await response.json();
+            } else {
+                alert('Erro ao carregar post.');
+            }
+        } catch (error) {
+            console.error('Erro ao buscar post por ID:', error);
+        }
+    }
+</script>
+
+</body>
+</html>

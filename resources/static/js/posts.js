@@ -1,12 +1,18 @@
-
 async function fetchPosts() {
     const postsContainer = document.getElementById('postsContainer');
     postsContainer.innerHTML = '<p>Carregando posts...</p>'; // Exibe uma mensagem de carregamento
+
+    const token = localStorage.getItem('token'); // Pega o token do localStorage
+    if (!token) {
+        postsContainer.innerHTML = '<p>Erro: Usuário não autenticado.</p>';
+        return;
+    }
 
     try {
         const response = await fetch('http://localhost:8080/api/posts', {
             method: 'GET',
             headers: {
+                'Authorization': `Bearer ${token}`, // Adiciona o token no header
                 'Content-Type': 'application/json'
             }
         });
@@ -22,7 +28,6 @@ async function fetchPosts() {
         postsContainer.innerHTML = '<p>Erro ao carregar posts. Tente novamente mais tarde.</p>';
     }
 }
-
 
 function renderPosts(posts) {
     const postsContainer = document.getElementById('postsContainer');
@@ -44,4 +49,5 @@ function renderPosts(posts) {
         postsContainer.appendChild(postElement);
     });
 }
+
 document.addEventListener('DOMContentLoaded', fetchPosts);

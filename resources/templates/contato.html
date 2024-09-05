@@ -3,104 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato</title>
+    <title>Contato - Blog da Kayara</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <style>
-
-        body {
-            font-family: 'Raleway', sans-serif;
-            background-color: #c9b29a;
-            color: #3e2723;
+        /* Garantir que a página ocupe 100% da altura da janela */
+        html, body {
+            height: 100%;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            background-image: url('/imagens/magica.png'); /* Caminho para a imagem */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #f4f4f4; /* Cor clara para o texto */
+            font-family: 'Garamond', 'Times New Roman', serif; /* Fonte clássica e robusta */
+        }
+
+        header {
+            background-color: #a67a73; /* Rosa bege escuro */
+            padding: 20px;
+        }
+
+        h1 {
+            color: #f4f4f4; /* Cor clara para o título */
+            margin: 0;
+            text-align: center;
+            text-shadow: 2px 2px 5px #4b2e2a; /* Sombra marrom escura */
+            font-family: 'Georgia', 'Times New Roman', serif; /* Mantendo a fonte clássica */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 0;
+            background-color: #a67a73; /* Rosa bege escuro */
+        }
+
+        nav ul li a {
+            color: #f4f4f4; /* Cor clara para os links */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            text-shadow: 2px 2px 4px #4b2e2a; /* Sombra marrom escura nas letras */
+        }
+
+        nav ul li a:hover {
+            color: #e0aabb; /* Cor rosa mais clara no hover */
         }
 
         main {
             flex: 1;
-        }
-
-
-        h1 {
-            color: #64291f;
-            font-size: 2.5rem;
-            text-align: center;
-            text-shadow: 2px 2px 4px #b85c5c;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            color: #54241c;
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-
-        nav ul {
-            list-style: none;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            padding: 10px;
-            background-color: #916962;
-            margin: 0;
-            border-bottom: 2px solid #3e2723;
+            align-items: center;
         }
 
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: #fdf5e6;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 10px;
-        }
-
-        nav ul li a:hover {
-            color: #ffd700;
-        }
-
-               .contact-section {
+        footer {
+            background-color: #a67a73; /* Mesma cor do header */
+            color: #f4f4f4;
             text-align: center;
-            padding: 20px;
-            background-color: #f8f4f0;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 20px auto;
+            padding: 10px;
+            border-top: 2px solid #4b2e2a; /* Linha de separação do rodapé */
+        }
+
+        .contact-section {
+            text-align: center;
+            margin: 40px auto;
             max-width: 600px;
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro para a seção de contato */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adiciona sombra para destacar a seção */
+        }
+
+        .contact-section h2 {
+            font-size: 2rem; /* Mantendo o tamanho da fonte do título */
+            color: #f4f4f4;
+            text-shadow: 2px 2px 5px #4b2e2a;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            margin-bottom: 10px;
         }
 
         .contact-section p {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+            font-size: 1.4rem; /* Aumentando o tamanho da fonte para melhor visibilidade */
+            font-weight: bold; /* Tornando o texto mais robusto */
+            color: #ffffff; /* Cor branca para o texto */
+            line-height: 1.5; /* Melhorando o espaçamento entre as linhas */
         }
 
         .contact-section strong {
-            color: #54241c;
+            color: #ffffff; /* Usando branco puro para destacar ainda mais o texto */
+            font-size: 1.4rem;
         }
 
-
-        footer {
-            background-color: #3e2723;
-            padding: 20px;
+        .whatsapp-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4b2e2a; /* Fundo marrom */
+            color: #f4f4f4; /* Texto branco */
+            border-radius: 5px;
+            font-size: 1.2rem;
+            text-decoration: none;
             text-align: center;
-            color: #f8f4f0;
-            margin-top: 40px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #a67a73; /* Rosa bege escuro no hover */
         }
     </style>
 </head>
 <body>
 <header>
-    <h1>Entre em Contato</h1>
+    <h1>Blog da Kayara</h1>
     <nav>
         <ul>
             <li><a th:href="@{/}">Página Inicial</a></li>
-            <li><a th:href="@{/Postagens}">Postagens</a></li>
+            <li><a th:href="@{/postagens}">Postagens</a></li>
             <li><a th:href="@{/contato}">Contato</a></li>
             <li><a th:href="@{/login}">Login</a></li>
         </ul>
@@ -115,18 +142,17 @@
         </p>
         <p>
             <strong>Email:</strong> contato@kayara.com.br<br>
-            <strong>Telefone:</strong> (11) 1234-5678<br>
             <strong>Endereço:</strong> Rua Exemplo, 123, Bairro Exemplo, Cidade Exemplo, Estado Exemplo
         </p>
         <p>
             Estamos disponíveis de segunda a sexta-feira, das 9h às 18h.
         </p>
+        <a href="https://wa.me/5543988151839" class="whatsapp-button">WhatsApp</a> <!-- Botão de WhatsApp -->
     </section>
 </main>
 
 <footer>
-    <p>Blog - Todos os direitos reservados</p>
+    <p>Todos os direitos reservados - Blog da Kayara</p>
 </footer>
-
 </body>
 </html>
